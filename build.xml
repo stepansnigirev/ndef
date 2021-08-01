@@ -19,6 +19,18 @@
   <!-- ant-javacard task from javacard.pro -->
   <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ant-javacard.jar"/>
   <!-- All included applets -->
+  <target name="NdefApplet" depends="init">
+    <javacard jckit="${JCKIT}">
+      <cap output="${cap.dir}/NdefApplet.cap" 
+           sources="${src.dir}/toys"
+           classes="${class.dir}/Ndef"
+           includes="NdefApplet.java,UtilTLV.java"
+      >
+        <applet class="toys.NdefApplet"       aid="D2760000850101"/>
+      </cap>
+    </javacard>
+  </target>
+
   <target name="NDEFStatic" depends="init">
     <javacard jckit="${JCKIT}">
       <cap output="${cap.dir}/NDEFStaticApplet.cap" 
@@ -26,7 +38,7 @@
            classes="${class.dir}/NDEFStatic"
            includes="NDEFStaticApplet.java,DataEntry.java"
       >
-        <applet class="toys.NDEFStaticApplet"       aid="B00B5111CA01"/>
+        <applet class="toys.NDEFStaticApplet"       aid="CDEF5111CA01"/>
       </cap>
     </javacard>
   </target>
