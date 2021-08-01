@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="JavaCardPlayground build">
+  <!-- Applet building dependencies -->
+  <property name="JC211" value="sdks/jc211_kit"/>
+  <property name="JC212" value="sdks/jc212_kit"/>
+  <property name="JC221" value="sdks/jc221_kit"/>
+  <property name="JC222" value="sdks/jc222_kit"/>
+  <property name="JC303" value="sdks/jc303_kit"/>
+  <property name="JC304" value="sdks/jc304_kit"/>
+  <property name="JC305" value="sdks/jc305u3_kit"/>
+  <property name="JCKIT" value="${JC304}"/>
+
+  <property name="src.dir"    value="src/main/java"/>
+  <property name="build.dir"  value="build"/>
+  <property name="cap.dir"    value="${build.dir}/cap"/>
+  <property name="class.dir"  value="${build.dir}/classes"/>
+  <property name="exp.dir"    value="${build.dir}/exp"/>
+
+  <!-- ant-javacard task from javacard.pro -->
+  <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ant-javacard.jar"/>
+  <!-- All included applets -->
+  <target name="NDEFStatic" depends="init">
+    <javacard jckit="${JCKIT}">
+      <cap output="${cap.dir}/NDEFStaticApplet.cap" 
+           sources="${src.dir}/toys"
+           classes="${class.dir}/NDEFStatic"
+           includes="NDEFStaticApplet.java,DataEntry.java"
+      >
+        <applet class="toys.NDEFStaticApplet"       aid="B00B5111CA01"/>
+      </cap>
+    </javacard>
+  </target>
+
+  <target name="all" depends="NDEFStatic"/>
+
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${cap.dir}"/>
+    <mkdir dir="${class.dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="clean-build" depends="clean,all"/>
+
+</project>
